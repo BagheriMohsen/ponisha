@@ -9,7 +9,7 @@ class AnswerListResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\JsonSerializable
      */
     public function toArray($request): array|\JsonSerializable
@@ -18,6 +18,7 @@ class AnswerListResource extends JsonResource
             return [
                 'user' => new UserDetailResource($item->user),
                 'description' => $item->description,
+                'accept' => $item->is_accepted,
                 'created_at' => $item->created_at
             ];
         });

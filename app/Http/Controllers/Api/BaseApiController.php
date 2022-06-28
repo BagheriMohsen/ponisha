@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class BaseApiController extends Controller
 {
 
-    public function sendResponse($data = [], string $message = null, int $code = Response::HTTP_OK): JsonResponse
+    public function sendResponse(array|\JsonSerializable $data = [], string $message = null, int $code = Response::HTTP_OK): JsonResponse
     {
         if ($message == null) {
             $message = __("Data retrieved successfully");
@@ -24,7 +24,10 @@ abstract class BaseApiController extends Controller
         ], $code);
     }
 
-    public function sendResponseWithPagination($data, PaginationResource $pagination, $message = null, $code = Response::HTTP_OK): JsonResponse
+    public function sendResponseWithPagination(array|\JsonSerializable $data,
+                                               PaginationResource $pagination,
+                                               string $message = null,
+                                               int $code = Response::HTTP_OK): JsonResponse
     {
         if ($message == null) {
             $message = __("Data retrieved successfully");

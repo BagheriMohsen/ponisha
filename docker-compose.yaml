@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    image: ponisha
+    container_name: ponisha-app
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - ponisha
+
+  db:
+    image: mysql:8.0
+    container_name: ponisha-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - ponisha
+
+  nginx:
+    image: nginx:alpine
+    container_name: ponisha-nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./docker-compose-files/nginx:/etc/nginx/conf.d/
+    networks:
+      - ponisha
+
+networks:
+  ponisha:
+    driver: bridge
