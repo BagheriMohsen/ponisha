@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Api\BaseApiController;
-use App\Http\Requests\Api\V1\Auth\RegisterRequest;
+use App\Http\Requests\Api\V1\RegisterRequest;
 use App\Services\Api\V1\AuthServiceInterface;
 use App\Services\Api\V1\UserServiceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

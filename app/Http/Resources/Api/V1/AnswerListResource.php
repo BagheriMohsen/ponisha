@@ -18,6 +18,7 @@ class AnswerListResource extends JsonResource
             return [
                 'user' => new UserDetailResource($item->user),
                 'description' => $item->description,
+                'created_at' => $item->created_at
             ];
         });
     }
