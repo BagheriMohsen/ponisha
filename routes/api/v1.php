@@ -46,4 +46,5 @@ Route::group(['middleware' => ['auth:sanctum'], 'prefix' => '{question}/',], fun
 /**
  * Comment
  */
-Route::resource('comments', CommentController::class);
+Route::post('comments/questions/{question}', [CommentController::class, 'store']);
+Route::post('comments/answers/{answer}', [CommentController::class, 'store']);

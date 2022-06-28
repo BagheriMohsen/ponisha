@@ -14,6 +14,8 @@ use App\Services\Api\V1\AnswerService;
 use App\Services\Api\V1\AnswerServiceInterface;
 use App\Services\Api\V1\AuthService;
 use App\Services\Api\V1\AuthServiceInterface;
+use App\Services\Api\V1\CommentService;
+use App\Services\Api\V1\CommentServiceInterface;
 use App\Services\Api\V1\QuestionService;
 use App\Services\Api\V1\QuestionServiceInterface;
 use App\Services\Api\V1\UserService;
@@ -48,6 +50,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AnswerServiceInterface::class, AnswerService::class);
         $this->app->bind(AuthServiceInterface::class, AuthService::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
-        $this->app->bind(AnswerServiceInterface::class, AnswerService::class);
+        $this->app->bind(CommentServiceInterface::class, CommentService::class);
     }
 }
