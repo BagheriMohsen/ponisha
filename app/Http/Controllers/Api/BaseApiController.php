@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\PaginationResource;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -23,7 +24,7 @@ abstract class BaseApiController extends Controller
         ], $code);
     }
 
-    public function sendResponseWithPagination($data, $pagination, $message = null, $code = Response::HTTP_OK): JsonResponse
+    public function sendResponseWithPagination($data, PaginationResource $pagination, $message = null, $code = Response::HTTP_OK): JsonResponse
     {
         if ($message == null) {
             $message = __("Data retrieved successfully");

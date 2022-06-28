@@ -17,4 +17,13 @@ class QuestionRepository extends BaseRepository implements QuestionRepositoryInt
     {
         return Question::class;
     }
+
+    public function listByUser(int $userId, int $perPage=15): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        return $this->query()
+            ->with('user', 'answers')
+            ->where('user_id', $userId)
+            ->latest()
+            ->paginate($perPage);
+    }
 }

@@ -14,4 +14,6 @@ interface QuestionServiceInterface
                                     $direction="desc",
                                     $perPage=15): \Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
+    public function listByUser(int $userId, int $perPage=15): \Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
 }

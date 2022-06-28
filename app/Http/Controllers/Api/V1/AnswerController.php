@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\BaseApiController;
 use App\Http\Requests\Api\V1\AnswerStoreRequest;
 use App\Http\Resources\Api\PaginationResource;
 use App\Http\Resources\Api\V1\AnswerListResource;
+use App\Models\Answer;
 use App\Models\Question;
 use App\Services\Api\V1\AnswerServiceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -35,6 +36,13 @@ class AnswerController extends BaseApiController
         $this->answerService->create($question->id, $data);
 
         return $this->sendResponse(message: __('Answer has been created'), code: Response::HTTP_CREATED);
+    }
+
+    public function accept(Question $question, Answer $answer): JsonResponse
+    {
+        $this->answerService->accept($question, $answer);
+
+        return $this->sendResponse(message: __('Answer successfully accepted'));
     }
 
 }

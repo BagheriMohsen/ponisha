@@ -35,4 +35,15 @@ class QuestionController extends BaseApiController
         return $this->sendResponse(message: __('Question has been created'), code: Response::HTTP_CREATED);
     }
 
+    public function getListByAuthenticateUser(): JsonResponse
+    {
+        $user = auth()->user();
+        $questions = $this->questionService->listByUser($user->id);
+
+        return $this->sendResponseWithPagination(
+            new QuestionListResource($questions),
+            new PaginationResource($questions)
+        );
+    }
+
 }

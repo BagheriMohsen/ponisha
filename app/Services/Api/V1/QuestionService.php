@@ -20,4 +20,9 @@ class QuestionService implements QuestionServiceInterface
     {
         return $this->questionRepository->getWithPaginate($queries,$with, $sort, $direction, $perPage);
     }
+
+    public function listByUser(int $userId, int $perPage = 15): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        return $this->questionRepository->listByUser($userId, $perPage);
+    }
 }

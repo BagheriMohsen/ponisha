@@ -2,6 +2,8 @@
 
 namespace App\Services\Api\V1;
 
+use App\Models\Answer;
+use App\Models\Question;
 use App\Repositories\AnswerRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,5 +23,17 @@ class AnswerService implements AnswerServiceInterface
         $data['question_id'] = $questionId;
 
         return $this->answerRepository->create($data);
+    }
+
+    public function accept(Question $question, Answer $answer): bool
+    {
+        $this->answerRepository->rejectPreviousAccepted($question);
+
+        return $this->answerRepository->accept($answer);
+    }
+
+    public function storeComment(Answer $answer, string $description): Model
+    {
+        return $answer->comments()->create(['description', $description]);
     }
 }

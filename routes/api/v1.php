@@ -3,7 +3,9 @@
 use App\Http\Controllers\Api\V1\AnswerController;
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\RegisterController;
+use App\Http\Controllers\Api\V1\CommentController;
 use App\Http\Controllers\Api\V1\QuestionController;
+use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -20,12 +22,28 @@ Route::group(['middleware' => ['guest'], 'prefix' => 'auth/', 'auth.'], function
 });
 
 /**
- * App
+ * Question
  */
 Route::middleware('auth:sanctum')->resource('questions', QuestionController::class);
+Route::group(['middleware'=> ['auth:sanctum'], 'prefix' => 'questions', 'as' => 'questions.'], function() {
+   Route::get('user', [QuestionController::class, 'getListByAuthenticateUser']);
+});
 
+/**
+ * User
+ */
+Route::middleware('auth:sanctum')->resource('users', UserController::class);
+
+/**
+ * Answer
+ */
 Route::group(['middleware' => ['auth:sanctum'], 'prefix' => '{question}/',], function() {
    Route::get('answers', [AnswerController::class, 'index']);
    Route::post('answers', [AnswerController::class, 'store']);
+   Route::patch('accept/{answer}', [AnswerController::class, 'accept']);
 });
 
+/**
+ * Comment
+ */
+Route::resource('comments', CommentController::class);
